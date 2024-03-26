@@ -9,40 +9,40 @@
  */
 bst_t *bst_insert(bst_t **tree, int value)
 {
-	if (tree == NULL)
-		return (NULL);
+	bst_t *curr, *new;
 
-	bst_t *new_node, *current, *parent;
-
-	current = *tree;
-	parent = NULL;
-
-	/* Traverse the tree to find the appropriate position */
-	while (current != NULL)
+	if (tree != NULL)
 	{
-		if (value == current->n)
-			return (NULL); /* Value already exists, ignore */
+		curr = *tree;
 
-		parent = current;
+		if (curr == NULL)
+		{
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (*tree = new);
+		}
 
-		if (value < current->n)
-			current = current->left;
-		else
-			current = current->right;
+		if (value < curr->n) /* insert in left subtree */
+		{
+			if (curr->left != NULL)
+				return (bst_insert(&curr->left, value));
+
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (curr->left = new);
+		}
+		if (value > curr->n) /* insert in right subtree */
+		{
+			if (curr->right != NULL)
+				return (bst_insert(&curr->right, value));
+
+			new = binary_tree_node(curr, value);
+			if (new == NULL)
+				return (NULL);
+			return (curr->right = new);
+		}
 	}
-
-	/* Create a new node */
-	new_node = binary_tree_node(parent, value);
-	if (new_node == NULL)
-		return (NULL);
-
-	/* Insert the new node */
-	if (parent == NULL)
-		*tree = new_node; /* New node becomes the root */
-	else if (value < parent->n)
-		parent->left = new_node;
-	else
-		parent->right = new_node;
-
-	return (new_node);
+	return (NULL);
 }
