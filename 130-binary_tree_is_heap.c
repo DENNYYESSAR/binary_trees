@@ -19,7 +19,8 @@ size_t binary_tree_size(const binary_tree_t *tree)
 }
 
 /**
- * is_heap_util - Utility function to check if a binary tree is a valid Max Heap.
+ * is_heap_util - Utility function to check if a binary tree is a valid
+ *  Max Heap.
  * @tree: A pointer to the root node of the tree to check.
  * @index: The index of the current node.
  * @size: The total number of nodes in the tree.
